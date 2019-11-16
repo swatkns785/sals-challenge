@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Operators = ({
+const Filters = ({
   properties,
   operators,
   setProperty,
@@ -70,4 +70,4 @@ const Operators = ({
   );
 };
 
-export default Operators;
+export default Filters;

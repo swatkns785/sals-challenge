@@ -7,7 +7,7 @@ import Container from "@material-ui/core/Container";
 import { getData } from "./utils";
 
 import "./App.css";
-import { ItemsTable, Operators } from "./components";
+import { ItemsTable, Filters } from "./components";
 
 function App() {
   const { products, properties, operators } = getData();
@@ -15,7 +15,7 @@ function App() {
   return (
     <Container maxWidth="md">
       <Grid spacing={2}>
-        <Operators properties={properties} operators={operators} />
+        <Filters properties={properties} operators={operators} />
         <ItemsTable properties={properties} products={products} />
       </Grid>
     </Container>
