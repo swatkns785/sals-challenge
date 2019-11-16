@@ -15,13 +15,19 @@ const ItemsTable = ({ products, properties }) => (
       </TableRow>
     </TableHead>
     <TableBody>
-      {products.map(product => (
-        <TableRow key={product.id}>
-          {product.property_values.map(pv => (
-            <TableCell key={pv.property_id}>{pv.value}</TableCell>
-          ))}
+      {products ? (
+        products.map(product => (
+          <TableRow key={product.id}>
+            {product.property_values.map(pv => (
+              <TableCell key={pv.property_id}>{pv.value}</TableCell>
+            ))}
+          </TableRow>
+        ))
+      ) : (
+        <TableRow>
+          <TableCell>No results found</TableCell>
         </TableRow>
-      ))}
+      )}
     </TableBody>
   </Table>
 );

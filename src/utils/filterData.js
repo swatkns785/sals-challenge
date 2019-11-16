@@ -1,9 +1,17 @@
-const handleEquals = (options, value) => {
-  return options.includes(value);
+const handleEquals = (products, value) => {
+  return products.filter(pd =>
+    pd.property_values.find(pv => pv.value === value)
+  );
 };
 
 const filterData = (products, filters) => {
-  const newProducts = [...products];
+  let newProducts = [...products];
+
+  if (filters.queryString) {
+    if (filters.selectedOperator === "equals") {
+      newProducts = handleEquals(products, filters.queryString);
+    }
+  }
 
   console.log({ newProducts, filters });
 
