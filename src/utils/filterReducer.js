@@ -1,5 +1,3 @@
-import React, { useReducer } from "react";
-
 const ACTIONS = {
   SET_CATEGORY: "SET_CATEGORY",
   SET_OPERATOR: "SET_OPERATOR",
@@ -10,8 +8,8 @@ const ACTIONS = {
 
 const OPERATOR_MAP = {
   string: ["equals", "any", "none", "in", "contains"],
-  number: ["equals", "greater_than", "less_than", "any", "none", "in"],
-  enumerated: ["equals", "any", "none", "any"]
+  number: ["equals", "greater_than", "less_than"],
+  enumerated: ["equals", "any", "none"]
 };
 
 const CATEGORY_TYPES = {

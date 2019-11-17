@@ -20,6 +20,18 @@ const handleLessThan = (products, attr, value) => {
   );
 };
 
+const handleHasAny = (products, attr) => {
+  return products.filter(pd =>
+    pd.property_values.find(pv => pv.property_id === attr)
+  );
+};
+
+const handleHasNone = (products, attr) => {
+  return products.filter(
+    pd => !pd.property_values.find(pv => pv.property_id === attr)
+  );
+};
+
 const filterData = (products, filters) => {
   let newProducts = [...products];
 
@@ -47,6 +59,14 @@ const filterData = (products, filters) => {
         filters.queryString
       );
     }
+  }
+
+  if (filters.selectedOperator === "any") {
+    newProducts = handleHasAny(products, filters.selectedProperty.id);
+  }
+
+  if (filters.selectedOperator === "none") {
+    newProducts = handleHasNone(products, filters.selectedProperty.id);
   }
 
   console.log({ newProducts, filters });
