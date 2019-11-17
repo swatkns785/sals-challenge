@@ -1,8 +1,12 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project creates renders a table of products and allows users to filter the results by the available attributes.
+
+## Install dependencies
+
+Run `yarn install` or `npm install` to install project dependencies.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you can run the following:
 
 ### `yarn start`
 
@@ -17,52 +21,16 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## About the app
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Filtering
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+I chose to focus the majority of my efforts on the filtering functionality. In `/utils/filterData` there are methods that filter the data that is broken down by operator type. There is also a test suite that fully tests the filtering functionality.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Application state
 
-### `yarn eject`
+In `/utils/filterReducer`, I created a state management mechanism to be leveraged by React's `useReducer` hook. There are actions to set different values for different filters. The application's state at any given moment is used in `filterData` to return applicable products (or nothing, if none are available).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Styling
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+In choosing to focus most of my efforts on the filtering functionality, I leveraged the Material UI toolkit for the application's components.
