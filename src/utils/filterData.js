@@ -35,22 +35,19 @@ const handleHasNone = (products, attr) => {
 };
 
 const handleIn = (products, attr, value) => {
-  let values;
-  switch (true) {
-    case value.includes(", "):
-      values = value.split(", ");
-      break;
-    case value.includes(","):
-      values = value.split(",");
-      break;
-    default:
-      values = value.split(" ");
-  }
-
   return products.filter(pd =>
     pd.property_values.find(pv => {
       const regex = new RegExp(pv.value, "i");
       return pv.property_id === attr && regex.test(value);
+    })
+  );
+};
+
+const handleContains = (products, attr, value) => {
+  return products.filter(pd =>
+    pd.property_values.find(pv => {
+      const regex = new RegExp(value, "i");
+      return pv.property_id === attr && regex.test(pv.value);
     })
   );
 };
@@ -85,6 +82,14 @@ const filterData = (products, filters) => {
 
     if (filters.selectedOperator === "in") {
       newProducts = handleIn(
+        products,
+        filters.selectedProperty.id,
+        filters.queryString
+      );
+    }
+
+    if (filters.selectedOperator === "contains") {
+      newProducts = handleContains(
         products,
         filters.selectedProperty.id,
         filters.queryString
