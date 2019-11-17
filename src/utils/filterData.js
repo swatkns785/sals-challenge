@@ -1,4 +1,8 @@
 const handleEquals = (products, attr, value) => {
+  if (!value.length) {
+    return products;
+  }
+
   return products.filter(pd =>
     pd.property_values.find(pv => {
       const regex = new RegExp(pv.value, "i");
@@ -35,66 +39,72 @@ const handleHasNone = (products, attr) => {
 };
 
 const handleIn = (products, attr, value) => {
-  return products.filter(pd =>
-    pd.property_values.find(pv => {
-      const regex = new RegExp(pv.value, "i");
-      return pv.property_id === attr && regex.test(value);
-    })
-  );
+  if (Array.isArray(value) ? value.length : value) {
+    return products.filter(pd =>
+      pd.property_values.find(pv => {
+        const regex = new RegExp(pv.value, "i");
+        return pv.property_id === attr && regex.test(value);
+      })
+    );
+  }
+
+  return products;
 };
 
 const handleContains = (products, attr, value) => {
-  return products.filter(pd =>
-    pd.property_values.find(pv => {
-      const regex = new RegExp(value, "i");
-      return pv.property_id === attr && regex.test(pv.value);
-    })
-  );
+  if (value) {
+    return products.filter(pd =>
+      pd.property_values.find(pv => {
+        const regex = new RegExp(value, "i");
+        return pv.property_id === attr && regex.test(pv.value);
+      })
+    );
+  }
+
+  return products;
 };
 
 const filterData = (products, filters) => {
   let newProducts = [...products];
 
-  if (filters.queryString) {
-    if (filters.selectedOperator === "equals") {
-      newProducts = handleEquals(
-        products,
-        filters.selectedProperty.id,
-        filters.queryString
-      );
-    }
+  if (filters.selectedOperator === "equals") {
+    newProducts = handleEquals(
+      products,
+      filters.selectedProperty.id,
+      filters.queryString || filters.selectedCategory
+    );
+  }
 
-    if (filters.selectedOperator === "greater_than") {
-      newProducts = handleGreaterThan(
-        products,
-        filters.selectedProperty.id,
-        filters.queryString
-      );
-    }
+  if (filters.selectedOperator === "greater_than") {
+    newProducts = handleGreaterThan(
+      products,
+      filters.selectedProperty.id,
+      filters.queryString
+    );
+  }
 
-    if (filters.selectedOperator === "less_than") {
-      newProducts = handleLessThan(
-        products,
-        filters.selectedProperty.id,
-        filters.queryString
-      );
-    }
+  if (filters.selectedOperator === "less_than") {
+    newProducts = handleLessThan(
+      products,
+      filters.selectedProperty.id,
+      filters.queryString
+    );
+  }
 
-    if (filters.selectedOperator === "in") {
-      newProducts = handleIn(
-        products,
-        filters.selectedProperty.id,
-        filters.queryString
-      );
-    }
+  if (filters.selectedOperator === "in") {
+    newProducts = handleIn(
+      products,
+      filters.selectedProperty.id,
+      filters.queryString || filters.selectedCategory
+    );
+  }
 
-    if (filters.selectedOperator === "contains") {
-      newProducts = handleContains(
-        products,
-        filters.selectedProperty.id,
-        filters.queryString
-      );
-    }
+  if (filters.selectedOperator === "contains") {
+    newProducts = handleContains(
+      products,
+      filters.selectedProperty.id,
+      filters.queryString
+    );
   }
 
   if (filters.selectedOperator === "any") {

@@ -38,6 +38,12 @@ function App() {
               payload: { selectedProperty: el.target.value }
             })
           }
+          setCategory={el =>
+            dispatch({
+              type: ACTIONS.SET_CATEGORY,
+              payload: { selectedCategory: el.target.value }
+            })
+          }
           setQueryString={el =>
             dispatch({
               type: ACTIONS.SET_QUERY_STRING,

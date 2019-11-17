@@ -1,4 +1,5 @@
 const ACTIONS = {
+  SET_CATEGORY: "SET_CATEGORY",
   SET_OPERATOR: "SET_OPERATOR",
   SET_PROPERTY: "SET_PROPERTY",
   SET_QUERY_STRING: "SET_QUERY_STRING",
@@ -12,19 +13,10 @@ const OPERATOR_MAP = {
   enumerated: ["equals", "any", "none", "in"]
 };
 
-const CATEGORY_TYPES = {
-  equals: "textfield",
-  greater_than: "textfield",
-  less_than: "textfield",
-  any: null,
-  none: null,
-  in: "textfield",
-  contains: "textfield"
-};
-
 const INITIAL_STATE = {
   selectedProperty: "",
   selectedOperator: "",
+  selectedCategory: [],
   operatorTypes: null,
   queryString: null
 };
@@ -38,11 +30,15 @@ const filterReducer = (state, action) => {
         ...state,
         queryString: action.payload.queryString
       };
+    case ACTIONS.SET_CATEGORY:
+      return {
+        ...state,
+        ...action.payload
+      };
     case ACTIONS.SET_OPERATOR:
       return {
         ...state,
-        ...action.payload,
-        categoryType: CATEGORY_TYPES[action.payload.selectedOperator]
+        ...action.payload
       };
     case ACTIONS.SET_PROPERTY:
       return {

@@ -11,7 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 150
+    minWidth: 225
   }
 }));
 
@@ -29,14 +29,29 @@ const Filters = ({
   operators,
   setProperty,
   setOperator,
+  setCategory,
   selectedProperty,
   selectedOperator,
+  selectedCategory,
   setQueryString,
   operatorTypes,
-  categoryType,
   handleReset
 }) => {
   const classes = useStyles();
+  const propertyHasValues = !!selectedProperty.values;
+
+  const handleChangeMultiple = event => {
+    debugger;
+    const { options } = event.target;
+    const value = [];
+    for (let i = 0, l = options.length; i < l; i += 1) {
+      if (options[i].selected) {
+        value.push(options[i].value);
+      }
+    }
+    setCategory(value);
+  };
+
   return (
     <Box
       display="flex"
@@ -49,7 +64,8 @@ const Filters = ({
         <FormControl className={classes.formControl}>
           <InputLabel id="productName">Filter by attribute</InputLabel>
           <Select
-            id="select-attr"
+            id="selected-attr"
+            name="selected-attr"
             value={selectedProperty}
             onChange={setProperty}
           >
@@ -65,6 +81,7 @@ const Filters = ({
             <InputLabel id="operator">Operator</InputLabel>
             <Select
               id="selected-operator"
+              name="selected-operator"
               value={selectedOperator}
               onChange={setOperator}
             >
@@ -80,18 +97,43 @@ const Filters = ({
           </FormControl>
         )}
 
-        {categoryType === "textfield" && !!selectedOperator && (
-          <FormControl
-            className={classes.formControl}
-            style={{ justifyContent: "flex-end" }}
-          >
-            <TextField
-              id="productQuery"
-              onChange={setQueryString}
-              placeholder="parameter"
-            />
-          </FormControl>
-        )}
+        {!!selectedOperator ? (
+          propertyHasValues ? (
+            <FormControl
+              className={classes.formControl}
+              style={{ justifyContent: "flex-end" }}
+            >
+              <InputLabel id="productName">
+                Select category/categories
+              </InputLabel>
+              <Select
+                id="selected-category"
+                name="selected-category"
+                onChange={setCategory}
+                value={selectedCategory}
+                placeholder="parameter"
+                multiple
+              >
+                {selectedProperty.values.map((spv, idx) => (
+                  <MenuItem key={idx} value={spv}>
+                    {spv}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          ) : (
+            <FormControl
+              className={classes.formControl}
+              style={{ justifyContent: "flex-end" }}
+            >
+              <TextField
+                id="productQuery"
+                onChange={setQueryString}
+                placeholder="parameter"
+              />
+            </FormControl>
+          )
+        ) : null}
       </Box>
       <Button variant="outlined" color="primary" onClick={handleReset}>
         reset
