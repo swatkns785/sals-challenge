@@ -1,6 +1,5 @@
 import React, { useReducer } from "react";
 
-import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 
@@ -27,12 +26,6 @@ function App() {
           properties={properties}
           operators={operators}
           reset={() => dispatch({ type: ACTIONS.RESET })}
-          setCategory={el =>
-            dispatch({
-              type: ACTIONS.SET_CATEGORY,
-              payload: { selectedCategory: el.target.value }
-            })
-          }
           setOperator={el =>
             dispatch({
               type: ACTIONS.SET_OPERATOR,
@@ -56,6 +49,7 @@ function App() {
           selectedProperty={filters.selectedProperty}
           operatorTypes={filters.operatorTypes}
           categoryType={filters.categoryType}
+          handleReset={() => dispatch({ type: ACTIONS.RESET })}
         />
         <ItemsTable properties={properties} products={filteredProducts} />
       </Box>

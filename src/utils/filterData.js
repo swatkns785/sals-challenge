@@ -105,8 +105,6 @@ const filterData = (products, filters) => {
     newProducts = handleHasNone(products, filters.selectedProperty.id);
   }
 
-  console.log({ newProducts, filters });
-
   return newProducts;
 };
 
