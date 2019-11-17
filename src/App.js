@@ -1,7 +1,7 @@
 import React, { useReducer } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 
 import {
@@ -22,7 +22,7 @@ function App() {
 
   return (
     <Container maxWidth="md">
-      <Grid spacing={2}>
+      <Box mt={5}>
         <Filters
           properties={properties}
           operators={operators}
@@ -58,7 +58,7 @@ function App() {
           categoryType={filters.categoryType}
         />
         <ItemsTable properties={properties} products={filteredProducts} />
-      </Grid>
+      </Box>
     </Container>
   );
 }
