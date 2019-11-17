@@ -1,10 +1,12 @@
 const handleEquals = (products, attr, value) => {
   return products.filter(pd =>
-    pd.property_values.find(
-      pv =>
-        (pv.value === value || pv.value === parseInt(value)) &&
+    pd.property_values.find(pv => {
+      const regex = new RegExp(pv.value, "i");
+      return (
+        (regex.test(value) || pv.value === parseInt(value)) &&
         pv.property_id === attr
-    )
+      );
+    })
   );
 };
 
@@ -46,9 +48,10 @@ const handleIn = (products, attr, value) => {
   }
 
   return products.filter(pd =>
-    pd.property_values.find(
-      pv => pv.property_id === attr && values.includes(pv.value)
-    )
+    pd.property_values.find(pv => {
+      const regex = new RegExp(pv.value, "i");
+      return pv.property_id === attr && regex.test(value);
+    })
   );
 };
 

@@ -72,23 +72,7 @@ const Filters = ({
           </Select>
         </FormControl>
       )}
-      {["select", "multiselect"].includes(categoryType) && !!selectedOperator && (
-        <FormControl className={classes.formControl}>
-          <InputLabel id="productName">Select category</InputLabel>
-          <Select
-            id="selected-category"
-            value={selectedCategory}
-            onChange={setCategory}
-            multiple={categoryType === "multiselect"}
-          >
-            {selectedProperty.values.map((val, idx) => (
-              <MenuItem key={`val-${idx}`} value={val}>
-                {val}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      )}
+
       {categoryType === "textfield" && !!selectedOperator && (
         <FormControl
           className={classes.formControl}
