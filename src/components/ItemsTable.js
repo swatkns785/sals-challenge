@@ -18,7 +18,7 @@ const ItemsTable = ({ products, properties }) => (
       </TableRow>
     </TableHead>
     <TableBody>
-      {products ? (
+      {products && products.length > 0 ? (
         products.map(product => (
           <TableRow key={product.id}>
             {product.property_values.map(pv => (

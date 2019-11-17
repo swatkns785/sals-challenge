@@ -38,7 +38,7 @@ const Filters = ({
   handleReset
 }) => {
   const classes = useStyles();
-  const propertyHasValues = !!selectedProperty.values;
+  const propertyHasValues = !!(selectedProperty || {}).values;
 
   return (
     <Box
