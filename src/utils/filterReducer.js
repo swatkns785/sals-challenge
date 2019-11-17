@@ -9,7 +9,7 @@ const ACTIONS = {
 const OPERATOR_MAP = {
   string: ["equals", "any", "none", "in", "contains"],
   number: ["equals", "greater_than", "less_than"],
-  enumerated: ["equals", "any", "none"]
+  enumerated: ["equals", "any", "none", "in"]
 };
 
 const CATEGORY_TYPES = {
@@ -18,7 +18,7 @@ const CATEGORY_TYPES = {
   less_than: "textfield",
   any: null,
   none: null,
-  in: "multiselect",
+  in: "textfield",
   contains: "textfield"
 };
 
@@ -48,7 +48,6 @@ const filterReducer = (state, action) => {
       };
     case ACTIONS.SET_PROPERTY:
       return {
-        ...INITIAL_STATE,
         ...action.payload,
         operatorTypes: OPERATOR_MAP[action.payload.selectedProperty.type],
         name: action.payload.selectedProperty.name

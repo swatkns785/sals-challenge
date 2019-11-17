@@ -32,6 +32,26 @@ const handleHasNone = (products, attr) => {
   );
 };
 
+const handleIn = (products, attr, value) => {
+  let values;
+  switch (true) {
+    case value.includes(", "):
+      values = value.split(", ");
+      break;
+    case value.includes(","):
+      values = value.split(",");
+      break;
+    default:
+      values = value.split(" ");
+  }
+
+  return products.filter(pd =>
+    pd.property_values.find(
+      pv => pv.property_id === attr && values.includes(pv.value)
+    )
+  );
+};
+
 const filterData = (products, filters) => {
   let newProducts = [...products];
 
@@ -54,6 +74,14 @@ const filterData = (products, filters) => {
 
     if (filters.selectedOperator === "less_than") {
       newProducts = handleLessThan(
+        products,
+        filters.selectedProperty.id,
+        filters.queryString
+      );
+    }
+
+    if (filters.selectedOperator === "in") {
+      newProducts = handleIn(
         products,
         filters.selectedProperty.id,
         filters.queryString
