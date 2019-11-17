@@ -40,18 +40,6 @@ const Filters = ({
   const classes = useStyles();
   const propertyHasValues = !!selectedProperty.values;
 
-  const handleChangeMultiple = event => {
-    debugger;
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setCategory(value);
-  };
-
   return (
     <Box
       display="flex"

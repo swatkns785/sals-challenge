@@ -1,4 +1,5 @@
 import React from "react";
+import Box from "@material-ui/core/Box";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,7 +11,9 @@ const ItemsTable = ({ products, properties }) => (
     <TableHead>
       <TableRow>
         {properties.map(property => (
-          <TableCell key={property.id}>{property.name}</TableCell>
+          <TableCell key={property.id}>
+            <Box fontWeight="600">{property.name}</Box>
+          </TableCell>
         ))}
       </TableRow>
     </TableHead>
